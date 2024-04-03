@@ -1,0 +1,59 @@
+{
+  "displayName": "Pytorch Librispeech Dataset",
+  "name": "pytorch-librispeech-dataset",
+  "description": "Pytorch Librispeech Dataset contains of first 1000 samples of Librispeech dataset with transcriptions.",
+  "scope": "public",
+  "version": "0.0.2",
+  "codebase": {
+    "type": "git",
+    "gitUrl": "https://github.com/dataloop-ai-apps/datasets-torch.git",
+    "gitTag": "0.0.2"
+  },
+  "attributes": {
+    "Provider": "Meta",
+    "Category": "Dataset",
+    "License": "CC BY 4.0"
+  },
+  "components": {
+    "modules": [
+      {
+        "name": "dataset-adapter",
+        "entryPoint": "dataset_loader.py",
+        "className": "DatasetPytorch",
+        "description": "Dataset adapter for Pytorch",
+        "initInputs": [],
+        "functions": [
+          {
+            "name": "upload_dataset",
+            "input": [
+              {
+                "type": "Dataset",
+                "name": "dataset",
+                "description": "Dataloop Dataset Entity"
+              },
+              {
+                "type": "String",
+                "name": "source",
+                "description": "Dataset source URL"
+              }
+            ],
+            "output": [],
+            "displayName": "upload_dataset",
+            "displayIcon": "",
+            "description": "function to upload dataset to Dataloop"
+          }
+        ]
+      }
+    ],
+    "datasets": [
+      {
+        "name": "pytorch-librispeech",
+        "docs": "https://github.com/pytorch/data/blob/main/README.md",
+        "source": "https://pytorch.org/audio/stable/_modules/torchaudio/datasets/librispeech.html",
+        "invoke": {
+          "namespace": "dataset-adapter.upload_dataset"
+        }
+      }
+    ]
+  }
+}
