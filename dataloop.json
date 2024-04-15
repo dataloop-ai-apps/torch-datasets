@@ -15,6 +15,24 @@
     "License": "CC BY 4.0"
   },
   "components": {
+    "computeConfigs": [
+      {
+        "name": "pytorch-deploy",
+        "secrets": [],
+        "runtime": {
+          "podType": "regular-m",
+          "concurrency": 1,
+          "runnerImage": "dataloop_runner-cpu/main:1.90.22.latest",
+          "autoscaler": {
+            "type": "rabbitmq",
+            "minReplicas": 0,
+            "maxReplicas": 2,
+            "queueLength": 1000
+          },
+          "preemptible": false
+        }
+      }
+    ],
     "modules": [
       {
         "name": "dataset-adapter",
@@ -52,7 +70,8 @@
         "source": "https://pytorch.org/audio/stable/_modules/torchaudio/datasets/librispeech.html",
         "invoke": {
           "namespace": "dataset-adapter.upload_dataset"
-        }
+        },
+        "computeConfig": "pytorch-deploy"
       }
     ]
   }

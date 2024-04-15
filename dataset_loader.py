@@ -39,7 +39,7 @@ class DatasetPytorch(dl.BaseServiceRunner):
         :param source: The source of the dataset, used for logging purposes.
         """
         temp_dir = tempfile.TemporaryDirectory()
-        pool = ThreadPool(processes=16)
+        pool = ThreadPool(processes=5)
         async_results = list()
         self.logger.info('Uploading dataset')
         ranges = 1000
