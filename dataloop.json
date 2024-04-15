@@ -22,7 +22,7 @@
         "runtime": {
           "podType": "regular-m",
           "concurrency": 1,
-          "runnerImage": "dataloop_runner-cpu/main:1.90.22.latest",
+          "runnerImage": "dataloop_runner-cpu/main:1.91.2.latest",
           "autoscaler": {
             "type": "rabbitmq",
             "minReplicas": 0,
@@ -30,6 +30,9 @@
             "queueLength": 1000
           },
           "preemptible": false
+        },
+        "versions": {
+          "dtlpy": "1.91.2"
         }
       }
     ],
