@@ -22,7 +22,7 @@
         "runtime": {
           "podType": "regular-m",
           "concurrency": 1,
-          "runnerImage": "dataloop_runner-cpu/main:1.91.2.latest",
+          "runnerImage": "gcr.io/viewo-g/piper/agent/cpu/datasets-torch:0.0.1",
           "autoscaler": {
             "type": "rabbitmq",
             "minReplicas": 0,
