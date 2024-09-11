@@ -31,7 +31,7 @@ class DatasetPytorch(dl.BaseServiceRunner):
         self.dataset_pytorch = torchaudio.datasets.LIBRISPEECH(root=self.data_dir, url=self.dataset_part, download=True)
         self.logger.info('Dataset loaded')
 
-    def upload_dataset(self, dataset: dl.Dataset, source: str):
+    def upload_dataset(self, dataset: dl.Dataset, source: str, progress=None):
         """
         Prepares and uploads the dataset to the Dataloop platform.
 
@@ -42,7 +42,7 @@ class DatasetPytorch(dl.BaseServiceRunner):
         pool = ThreadPool(processes=5)
         async_results = list()
         self.logger.info('Uploading dataset')
-        ranges = 1000
+        ranges = 100
 
         for i in range(ranges):
             audio, sample_rate, transcript, speaker_id, chapter_id, utterance_id = self.dataset_pytorch[i]
