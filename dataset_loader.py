@@ -55,6 +55,12 @@ class DatasetPytorch(dl.BaseServiceRunner):
             audio_filename = f"{speaker_id}_{chapter_id}_{utterance_id}.wav"
             full_audio_path = os.path.join(temp_dir.name, audio_filename)
             torchaudio.save(full_audio_path, audio, sample_rate)
+            subset = 'train'
+            if i > 49:
+                subset = 'test'
+            if i > 79:
+                subset = 'validation'
+
             async_results.append(
                 pool.apply_async(
                     self.upload_item_with_annotations,
@@ -64,7 +70,8 @@ class DatasetPytorch(dl.BaseServiceRunner):
                         "annotation_text": transcript,
                         "label": speaker_id,
                         "end_time": duration_seconds,
-                        "progress": progress
+                        "progress": progress,
+                        "subset": subset
 
                     },
                 )
@@ -73,7 +80,7 @@ class DatasetPytorch(dl.BaseServiceRunner):
         pool.close()
         pool.join()
 
-    def upload_item_with_annotations(self, audio_path: str, dataset: dl.Dataset, annotation_text: str, label: str, end_time: float, progress=None):
+    def upload_item_with_annotations(self, audio_path: str, dataset: dl.Dataset, annotation_text: str, label: str, end_time: float, progress=None, subset='train'):
         """
         Uploads an audio item with annotations to the Dataloop platform.
 
@@ -84,7 +91,15 @@ class DatasetPytorch(dl.BaseServiceRunner):
         :param end_time: The duration of the audio.
         """
         # Upload audio file
-        item = dataset.items.upload(local_path=audio_path, remote_path='/')
+        metadata = {
+            "system": {
+                "tags": {}
+            }
+        }
+
+        metadata['system']['tags'][subset] = True
+
+        item = dataset.items.upload(local_path=audio_path, remote_path='/', item_metadata=metadata)
         builder = item.annotations.builder()
         annotation_definition = dl.Subtitle(text=annotation_text, label=str(label))
         builder.add(annotation_definition=annotation_definition,
