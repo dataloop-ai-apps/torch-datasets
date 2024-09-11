@@ -43,6 +43,7 @@ class DatasetPytorch(dl.BaseServiceRunner):
         async_results = list()
         self.logger.info('Uploading dataset')
         ranges = 100
+        self.proggres = 0
 
         for i in range(ranges):
             audio, sample_rate, transcript, speaker_id, chapter_id, utterance_id = self.dataset_pytorch[i]
@@ -62,7 +63,9 @@ class DatasetPytorch(dl.BaseServiceRunner):
                         "dataset": dataset,
                         "annotation_text": transcript,
                         "label": speaker_id,
-                        "end_time": duration_seconds
+                        "end_time": duration_seconds,
+                        "progress": progress
+
                     },
                 )
             )
@@ -70,8 +73,7 @@ class DatasetPytorch(dl.BaseServiceRunner):
         pool.close()
         pool.join()
 
-    @staticmethod
-    def upload_item_with_annotations(audio_path: str, dataset: dl.Dataset, annotation_text: str, label: str, end_time: float):
+    def upload_item_with_annotations(self, audio_path: str, dataset: dl.Dataset, annotation_text: str, label: str, end_time: float, progress=None):
         """
         Uploads an audio item with annotations to the Dataloop platform.
 
@@ -91,4 +93,9 @@ class DatasetPytorch(dl.BaseServiceRunner):
                     object_id='001'
                     )
         item.annotations.upload(builder)
+        self.proggres += 1
+        if progress is not None and self.proggres % 10 == 0:
+            progress.update(progress=self.proggres,
+                            message=f'Uploading items and annotations ...',
+                            status=f'Uploading items and annotations ...')
         return item
