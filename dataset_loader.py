@@ -5,6 +5,7 @@ import soundfile as sf
 import dtlpy as dl
 import tempfile
 from multiprocessing.pool import ThreadPool
+import requests
 
 logger = logging.getLogger(name='dataset-pytorch')
 
@@ -44,6 +45,11 @@ class DatasetPytorch(dl.BaseServiceRunner):
         self.logger.info('Uploading dataset')
         ranges = 100
         self.proggres = 0
+        json_url = 'https://storage.googleapis.com/model-mgmt-snapshots/datasets-torch/pytorch-librispeech-ontology.json'
+        response = requests.get(json_url)
+        ontology_json = response.json()
+        ontology: dl.Ontology = dataset.ontologies.list()[0]
+        ontology.copy_from(ontology_json=ontology_json)
 
         for i in range(ranges):
             audio, sample_rate, transcript, speaker_id, chapter_id, utterance_id = self.dataset_pytorch[i]
