@@ -3,11 +3,11 @@
   "name": "pytorch-librispeech-dataset",
   "description": "Pytorch Librispeech Dataset contains of first 100 samples of Librispeech dataset with transcriptions.",
   "scope": "public",
-  "version": "0.0.12",
+  "version": "0.0.13",
   "codebase": {
     "type": "git",
     "gitUrl": "https://github.com/dataloop-ai-apps/datasets-torch.git",
-    "gitTag": "0.0.12"
+    "gitTag": "0.0.13"
   },
   "attributes": {
     "Provider": "Meta",
