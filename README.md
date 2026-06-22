@@ -1,6 +1,6 @@
 # Dataset adapter for Pytorch Dataset
 
-This dataset adapter is designed to facilitate the transformation of the Librispeech dataset from Pytorch into a format compatible with Dataloop platform. The adapter simplifies the process of importing and preparing the dataset for various machine learning tasks.
+This dataset adapter is designed to facilitate the transformation of the Librispeech dataset from Pytorch into a format compatible with DDOE platform. The adapter simplifies the process of importing and preparing the dataset for various machine learning tasks.
 
 ## Installation
 

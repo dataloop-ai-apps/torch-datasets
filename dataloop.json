@@ -47,7 +47,7 @@
               {
                 "type": "Dataset",
                 "name": "dataset",
-                "description": "Dataloop Dataset Entity"
+                "description": "DDOE Dataset Entity"
               },
               {
                 "type": "String",
@@ -58,7 +58,7 @@
             "output": [],
             "displayName": "upload_dataset",
             "displayIcon": "",
-            "description": "function to upload dataset to Dataloop"
+            "description": "function to upload dataset to DDOE"
           }
         ]
       }
