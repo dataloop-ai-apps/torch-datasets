@@ -14,7 +14,7 @@ class DatasetPytorch(dl.BaseServiceRunner):
     """
     A class for loading and processing the LibriSpeech dataset using PyTorch.
     It includes methods for downloading the dataset, saving audio and transcriptions,
-    and uploading the dataset to the DataLoop platform.
+    and uploading the dataset to the DDOE platform.
     """
 
     def __init__(self):
@@ -34,9 +34,9 @@ class DatasetPytorch(dl.BaseServiceRunner):
 
     def upload_dataset(self, dataset: dl.Dataset, source: str, progress=None):
         """
-        Prepares and uploads the dataset to the Dataloop platform.
+        Prepares and uploads the dataset to the DDOE platform.
 
-        :param dataset: The Dataloop dataset object where the data will be uploaded.
+        :param dataset: The DDOE dataset object where the data will be uploaded.
         :param source: The source of the dataset, used for logging purposes.
         """
         temp_dir = tempfile.TemporaryDirectory()
@@ -88,10 +88,10 @@ class DatasetPytorch(dl.BaseServiceRunner):
 
     def upload_item_with_annotations(self, audio_path: str, dataset: dl.Dataset, annotation_text: str, label: str, end_time: float, progress=None, subset='train'):
         """
-        Uploads an audio item with annotations to the Dataloop platform.
+        Uploads an audio item with annotations to the DDOE platform.
 
         :param audio_path: The path to the audio file.
-        :param dataset: The Dataloop dataset object where the data will be uploaded.
+        :param dataset: The DDOE dataset object where the data will be uploaded.
         :param annotation_text: The transcription of the audio.
         :param label: The speaker ID.
         :param end_time: The duration of the audio.
